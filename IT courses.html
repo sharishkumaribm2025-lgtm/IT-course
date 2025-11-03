@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SkillTracker</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box;font-family:'Roboto',sans-serif;}
+  body{overflow-x:hidden;background:#111;color:white;}
+  section{padding:60px 0;position:relative;}
+  h1,h2{text-align:center;margin-bottom:20px;}
+  p{text-align:center;margin-bottom:40px;max-width:700px;margin-left:auto;margin-right:auto;}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;padding:0 20px;}
+  .card{background: rgba(255,255,255,0.1); padding:25px; border-radius:15px; cursor:pointer; text-align:center; transition:0.3s; position:relative; overflow:hidden;}
+  .card:hover{transform:scale(1.08); box-shadow:0 0 25px #fff;}
+  button{padding:10px 25px; border:none; border-radius:10px; background:linear-gradient(90deg,#ff416c,#ff4b2b); color:white; cursor:pointer; font-weight:bold; transition:0.3s;}
+  button:hover{transform:scale(1.1); box-shadow:0 0 15px #fff;}
+  footer{text-align:center;padding:20px;background:#111;}
+  .star{position:absolute;background:white;border-radius:50%;opacity:0;}
+  .course-popup{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.95);display:none;overflow:auto;padding:50px 20px;z-index:9999;}
+  .course-popup .grid{grid-template-columns:repeat(auto-fit,minmax(300px,1fr));}
+  .close-btn{position:absolute;top:20px;right:30px;font-size:30px;color:white;cursor:pointer;}
+  
+  /* Extraordinary Login Section */
+  .login-section{
+    position:relative;
+    padding:80px 0;
+    overflow:hidden;
+    background:linear-gradient(120deg,#ff6ec4,#7873f5,#42e695);
+    background-size:400% 400%;
+    animation:bgShift 15s ease infinite;
+  }
+  @keyframes bgShift{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+  }
+  .login-box{
+    background:rgba(0,0,0,0.6);
+    padding:50px;
+    border-radius:25px;
+    max-width:400px;
+    margin:0 auto;
+    text-align:center;
+    box-shadow:0 0 30px rgba(255,255,255,0.2);
+    animation:floatBox 6s ease-in-out infinite;
+    position:relative;
+  }
+  @keyframes floatBox{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-20px);}
+  }
+  .login-input{
+    display:block;
+    width:80%;
+    margin:20px auto;
+    padding:15px;
+    border:none;
+    border-radius:15px;
+    background:rgba(255,255,255,0.1);
+    color:white;
+    font-size:16px;
+    transition:0.3s;
+    box-shadow:0 0 10px rgba(255,255,255,0.1);
+  }
+  .login-input:focus{
+    outline:none;
+    box-shadow:0 0 20px #fff, 0 0 30px #42e695, 0 0 40px #ff6ec4;
+    transform:scale(1.05);
+  }
+  #loginBtn{
+    padding:15px 30px;
+    font-size:18px;
+    font-weight:bold;
+    background:linear-gradient(45deg,#ff6ec4,#42e695,#7873f5);
+    border:none;
+    border-radius:20px;
+    color:white;
+    cursor:pointer;
+    transition:0.3s;
+    box-shadow:0 0 10px #fff;
+  }
+  #loginBtn:hover{
+    transform:scale(1.1);
+    box-shadow:0 0 30px #fff,0 0 40px #42e695,0 0 50px #ff6ec4;
+  }
+  .particle{
+    position:absolute;
+    border-radius:50%;
+    background:rgba(255,255,255,0.7);
+    width:5px;
+    height:5px;
+    pointer-events:none;
+    animation:moveParticle 5s linear infinite;
+  }
+  @keyframes moveParticle{
+    0%{transform:translate(0,0);}
+    50%{transform:translate(100px, -50px);}
+    100%{transform:translate(-50px,100px);}
+  }
+</style>
+</head>
+<body>
+
+<!-- Hero Section -->
+<section class="hero">
+  <h1>SkillTracker - Master IT Skills</h1>
+  <p>Learn top IT courses, get certified, crack mock interviews, and secure 100% placements with tie-ups to 1000+ companies.</p>
+</section>
+
+<!-- Courses -->
+<section class="courses" id="courses">
+  <h2>Our Courses</h2>
+  <div class="grid">
+    <div class="card" onclick="showAllCourses()">Click to Explore Courses</div>
+  </div>
+</section>
+
+<!-- Offers -->
+<section class="offers">
+  <h2>Offers</h2>
+  <div class="grid">
+    <div class="card"><h3>50% Off First Course</h3></div>
+    <div class="card"><h3>Bundle Discount</h3></div>
+    <div class="card"><h3>Refer & Earn</h3></div>
+  </div>
+</section>
+
+<!-- Certificates -->
+<section class="certificates">
+  <h2>Certification</h2>
+  <p>Get verified certificates upon course completion.</p>
+</section>
+
+<!-- Tests -->
+<section class="tests">
+  <h2>Monthly NQT Tests</h2>
+  <p>Prepare & Evaluate Yourself for Placements.</p>
+</section>
+
+<!-- Placement -->
+<section class="placement">
+  <h2>Placement Provided</h2>
+  <p>Tie-ups with 1000+ companies for job placements.</p>
+</section>
+
+<!-- Mock Interviews -->
+<section class="mock">
+  <h2>Mock Interviews</h2>
+  <p>Practice & prepare for real interviews with our experts.</p>
+</section>
+
+<!-- Extraordinary Login -->
+<section class="login-section" id="login">
+  <h2>Login</h2>
+  <div class="login-box" id="loginBox">
+    <input type="text" placeholder="Username" class="login-input">
+    <input type="password" placeholder="Password" class="login-input">
+    <button id="loginBtn">Login</button>
+  </div>
+</section>
+
+<!-- Support -->
+<section class="support">
+  <h2>Contact Support</h2>
+  <a href="tel:7787786666">Mobile: 7787786666</a><br>
+  <a href="mailto:skilltracker@gmail.com">Email: skilltracker@gmail.com</a>
+</section>
+
+<!-- Footer -->
+<footer>
+  &copy; 2025 SkillTracker. All Rights Reserved.
+</footer>
+
+<!-- Course Popup -->
+<div class="course-popup" id="coursePopup">
+  <span class="close-btn" onclick="closePopup()">&times;</span>
+  <h2 style="text-align:center;margin-bottom:40px;">All IT Courses</h2>
+  <div class="grid" id="allCoursesGrid"></div>
+</div>
+
+<script>
+// Animated stars
+function createStar(){
+  const star=document.createElement('div');
+  star.classList.add('star');
+  star.style.left=Math.random()*window.innerWidth+'px';
+  star.style.top=Math.random()*window.innerHeight+'px';
+  let size=Math.random()*3+1;
+  star.style.width=star.style.height=size+'px';
+  document.body.appendChild(star);
+  star.animate([{opacity:0},{opacity:1},{opacity:0}],{duration:2000+Math.random()*3000,iterations:1});
+  setTimeout(()=>star.remove(),4000);
+}
+setInterval(createStar,100);
+
+// Login particle animations
+function createLoginParticle(){
+  const p=document.createElement('div');
+  let size=Math.random()*8+4;
+  p.style.width=p.style.height=size+'px';
+  p.style.background=`hsl(${Math.random()*360},100%,70%)`;
+  p.style.position='absolute';
+  p.style.borderRadius='50%';
+  p.style.left=Math.random()*window.innerWidth+'px';
+  p.style.top=Math.random()*window.innerHeight+'px';
+  document.body.appendChild(p);
+  p.animate([{transform:'translateY(0)',opacity:1},{transform:`translateY(-${50+Math.random()*50}px)`,opacity:0}],{duration:2500+Math.random()*2000,iterations:1,easing:'ease-out'});
+  setTimeout(()=>p.remove(),3000);
+}
+setInterval(createLoginParticle,150);
+
+// Login button click spark effect
+document.getElementById('loginBtn').addEventListener('click',()=>{
+  const btnRect=document.getElementById('loginBtn').getBoundingClientRect();
+  for(let i=0;i<30;i++){
+    const spark=document.createElement('div');
+    spark.style.width=spark.style.height=(Math.random()*6+4)+'px';
+    spark.style.background=`hsl(${Math.random()*360},100%,70%)`;
+    spark.style.position='absolute';
+    spark.style.borderRadius='50%';
+    spark.style.left=btnRect.left+btnRect.width/2+'px';
+    spark.style.top=btnRect.top+btnRect.height/2+'px';
+    document.body.appendChild(spark);
+    let x=Math.random()*200-100;
+    let y=Math.random()*200-100;
+    spark.animate([{transform:'translate(0,0)',opacity:1},{transform:`translate(${x}px,${y}px)`,opacity:0}],{duration:1200+Math.random()*400,easing:'ease-out'});
+    setTimeout(()=>spark.remove(),1500);
+  }
+});
+
+// Card fireworks
+function cardFireworks(card){
+  for(let i=0;i<20;i++){
+    const spark=document.createElement('div');
+    spark.style.width=spark.style.height=(Math.random()*6+4)+'px';
+    spark.style.background=`hsl(${Math.random()*360},100%,70%)`;
+    spark.style.position='absolute';
+    spark.style.borderRadius='50%';
+    let rect=card.getBoundingClientRect();
+    spark.style.left=rect.left+rect.width/2+'px';
+    spark.style.top=rect.top+rect.height/2+'px';
+    document.body.appendChild(spark);
+    let x=Math.random()*200-100;
+    let y=Math.random()*200-100;
+    spark.animate([{transform:'translate(0,0)',opacity:1},{transform:`translate(${x}px,${y}px)`,opacity:0}],{duration:1200+Math.random()*400,easing:'ease-out'});
+    setTimeout(()=>spark.remove(),1500);
+  }
+}
+
+// Courses Data
+const courses=[
+  "JavaScript","Python","Java","C++","HTML/CSS","React","Node.js","Angular","Django","SQL","NoSQL","AWS","Docker","Kubernetes","Machine Learning","Data Science","AI","Cyber Security"
+];
+
+function showAllCourses(){
+  const grid=document.getElementById('allCoursesGrid');
+  grid.innerHTML='';
+  courses.forEach(c=>{
+    const card=document.createElement('div');
+    card.classList.add('card');
+    card.innerText=c;
+    card.onclick=()=>alert(`You clicked on ${c} course!`);
+    grid.appendChild(card);
+  });
+  document.getElementById('coursePopup').style.display='block';
+}
+
+function closePopup(){
+  document.getElementById('coursePopup').style.display='none';
+}
+</script>
+</body>
+</html>
